@@ -15,6 +15,7 @@ export default function SignUp(){
 
     function handleSignUp(event){
         event.preventDefault();
+        
         const body = {
                         nome,
                         email,
