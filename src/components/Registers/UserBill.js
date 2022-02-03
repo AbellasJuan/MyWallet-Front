@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export default function UserBill(props){
-const { id, date, name, value, isCredit } = props.item;
+const {  date, name, value, isCredit } = props.item;
 
     return(
         <UnicaLinha>

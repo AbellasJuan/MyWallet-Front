@@ -1,24 +1,32 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginPage from  "./components/LoginPage.js";
-import SignUp from './components/SignUp.js';
-import Bills from './components/Bills.js';
-import NewEntry from './components/NewEntry.js';
-import NewExit from './components/NewExit.js';
+import { useState } from 'react';
+import SignIn from  "./components/Sign-in/SignIn.js";
+import SignUp from './components/Sign-up/SignUp.js';
+import Bills from './components/Registers/Bills.js';
+import NewEntry from './components/Transactions/NewEntry.js';
+import NewExit from './components/Transactions/NewExit.js';
 import styled from 'styled-components';
+import UserContext from '../src/contexts/UserContext.js';
+
 
 export default function App() {
+
+  const [user, setUser] = useState(null);
+
   return (
-    <BrowserRouter>
-      <Container>
-        <Routes>
-          <Route path="/" element={<LoginPage/>} />
-          <Route path="/sign-up" element={<SignUp/>} />
-          <Route path="/bills" element={<Bills/>} />
-          <Route path="/newentry" element={<NewEntry/>} />
-          <Route path="/newexit" element={<NewExit/>} />
-        </Routes>
+    <UserContext.Provider value={{ user, setUser }}>
+      <BrowserRouter>
+        <Container>
+          <Routes>
+            <Route path="/" element={<SignIn setUser={setUser} />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/bills" element={<Bills/>} />
+            <Route path="/newentry" element={<NewEntry/>} />
+            <Route path="/newexit" element={<NewExit/>} />
+          </Routes>
         </Container>
-    </BrowserRouter>
+      </BrowserRouter>
+    </UserContext.Provider>
   );
 }
 
