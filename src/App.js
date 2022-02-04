@@ -32,6 +32,8 @@ export default function App() {
 }
 
 const Container = styled.div`
-	height: 100vh;
+	height: auto;
+  min-height: 100vh;
   background: #8C11BE;
+  
 `;

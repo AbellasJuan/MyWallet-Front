@@ -16,30 +16,45 @@ export default function Bills({ user, setUserRegisters, userRegisters }){
             .then((response) => setUserRegisters(response.data))
             
             .catch(() => console.error)
-    }, []);
+    }, [setUserRegisters]);
 
     if( userRegisters === null) {
 		return <h1> CARREGANDO... </h1>	
     }
 
+    function calcularSaldo(){
+        const arrayDeValores = [];
 
-    console.log(userRegisters)
+        userRegisters.forEach(element => {
+            arrayDeValores.push(element.valor)
+        });
+
+        let soma = 0;
+        for(let i in arrayDeValores){
+            soma += arrayDeValores[i]
+        }
+        return soma;
+    }
+    
+    calcularSaldo();
 
     return(
-
         <Container>
             <Header>
                 <h1>{`Olá, ${user}`}</h1>
                 <IoMdExit id="icon-exit"/>
             </Header>
 
-        <ExtractContainer>
-                {userRegisters.map((register, index) => 
-                        <UserBill key={index} register={register}/>
-                )}
-            <Saldo>
+        <ExtractContainer> 
+            {userRegisters ? 
+                userRegisters.map((register, index) => 
+                <UserBill key={index} register={register}/>)
+                :
+                <h2>VOCÊ AINDA NÃO TEM TRANSAÇÕES</h2>
+            }
+            <Saldo saldo={calcularSaldo()}>
                 <b>SALDO</b>
-                <span>199,90</span>
+                <span>{calcularSaldo()}</span>
             </Saldo>
         </ExtractContainer>        
         
@@ -62,7 +77,7 @@ const Container = styled.div`
 	display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: 100vh;
+    min-height: 100vh;
 
        h1{
         font-family: 'Raleway', sans-serif;
@@ -70,36 +85,62 @@ const Container = styled.div`
         font-size: 26px;
         font-weight: 700;
         color: white;
-        margin-top: 25px;
-        margin-bottom: 22px;
-        margin-left: 5vw;
     };
 `;
 
 const Header = styled.div`
+    width: 90vw;
     display:flex;
-    width: 100vw;
-    justify-content: space-between;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 15px;
     align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
     
     #icon-exit{
-     margin-right: 5vw;
-     font-size: 33px;
-     color: white;
+    display: flex;
+    font-size: 33px;
+    color: white;
     }
+`;
+
+const ExtractContainer = styled.div`
+    width: 90vw;
+    min-height: 70vh;
+    height: auto;
+    padding-bottom: 60px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0 auto;
+
+        h2{
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            margin-top: 20%;
+            font-weight: 700;
+        }
 `;
 
 const EntryAndExit = styled.div`    
     display: flex;
-    margin-top: 13px;
+    padding-bottom: 30PX;
+    width: 90vw;
+    margin: auto;
+    justify-content: space-between;
+
 
     #link-entry{
         width: 155px;
         height: 114px;
         width: 42.5vw;
-        margin-left: 5vw;
         background: #A328D6;
         border-radius: 5px;
+        display: flex;
+        flex-direction: column;
         
         span{
         font-family: 'Raleway', sans-serif;
@@ -117,10 +158,10 @@ const EntryAndExit = styled.div`
         width: 155px;
         height: 114px;
         width: 42.5vw;
-        margin-left: 5vw;
-        margin-right: 5vw;
         background: #A328D6;
         border-radius: 5px;
+        display: flex;
+        flex-direction: column;
         
         span{
         font-family: 'Raleway', sans-serif;
@@ -142,33 +183,30 @@ const EntryAndExit = styled.div`
         }
 `;
 
-
-const ExtractContainer = styled.div`
-width: 90vw;
-height: 446px;
-background: #FFFFFF;
-border-radius: 5px;
-margin-left: 5vw;
-`;
-
 const Saldo = styled.p`
-    margin-top: 340px;
-    margin-left: 12px;
-    margin-right: 12px;
+    width: inherit;
+    position: absolute;
+    bottom: 5px;
     display: flex;
-    justify-content: space-between;
+    height: 30px;
+    background-color: white;
 
       b{
         font-family: 'Raleway', sans-serif;
         font-style: normal;
         font-size: 17px;
         font-weight: 700;
+        margin-left: 12px;
         }
 
         span{
+        position: absolute;
+        right: 0;
         font-family: 'Raleway', sans-serif;
         font-style: normal;
         font-size: 17px;
         font-weight: 400;
+        margin-right: 12px;
+        color: ${props => props.saldo >= 0 ? "#03AC00" : "#C70000"}
         }
 `;

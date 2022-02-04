@@ -39,9 +39,24 @@ function postNewEntry(body, token) {
     return promise;
 };
 
+//vai precisar de token
+function postNewExit(body, token) {
+    const config =
+        {
+            headers: 
+                {
+                Authorization: `Bearer ${token}`
+                }
+        }
+
+    const promise = axios.post(`${URL_BASE}/new-exit`, body, config);
+    return promise;
+};
+
 export {
     postLogin,
     postSignUp,
     getUserRegisters,
-    postNewEntry
+    postNewEntry,
+    postNewExit
 };

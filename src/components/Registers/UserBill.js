@@ -2,21 +2,17 @@ import styled from "styled-components";
 
 export default function UserBill( {register} ){
     
+    const { descricao, valor, isCredit } = register;
+
     return(
         <UnicaLinha>
-        <DateAndName>
-        <Date>
-            data
-        </Date>
-        
-        <Name>
-            {register.descricao}
-        </Name>
-        </DateAndName>
-        <Value >
-           <span>{register.valor}</span>
-        </Value>
-                
+            <DateAndName>
+                <Date> data </Date>
+                <Name> {descricao} </Name>
+            </DateAndName>
+            <Value isCredit={isCredit}>
+                <span>{valor}</span>
+            </Value>
         </UnicaLinha>
     );
 };
@@ -52,6 +48,6 @@ const Value = styled.span`
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: ${({isCredit}) => (isCredit?"green":"red")};
+    color: ${props => props.isCredit ? "#03AC00" : "#C70000" };
     margin-right: 10px;
 `;
