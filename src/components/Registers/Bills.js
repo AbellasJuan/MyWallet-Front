@@ -35,7 +35,6 @@ export default function Bills({ user, setUserRegisters, userRegisters }){
         }
         return soma;
     }
-    
     calcularSaldo();
 
     return(
@@ -46,15 +45,15 @@ export default function Bills({ user, setUserRegisters, userRegisters }){
             </Header>
 
         <ExtractContainer> 
-            {userRegisters ? 
+            {userRegisters.length === 0 ? 
+                <h2>VOCÊ AINDA NÃO TEM TRANSAÇÕES</h2>
+                :
                 userRegisters.map((register, index) => 
                 <UserBill key={index} register={register}/>)
-                :
-                <h2>VOCÊ AINDA NÃO TEM TRANSAÇÕES</h2>
             }
             <Saldo saldo={calcularSaldo()}>
                 <b>SALDO</b>
-                <span>{calcularSaldo()}</span>
+                <span>{calcularSaldo().toString().replace('-','')}</span>
             </Saldo>
         </ExtractContainer>        
         
@@ -207,6 +206,6 @@ const Saldo = styled.p`
         font-size: 17px;
         font-weight: 400;
         margin-right: 12px;
-        color: ${props => props.saldo >= 0 ? "#03AC00" : "#C70000"}
+        color:${props => props.saldo > 0 ? "#03AC00" : "#C70000"}
         }
 `;

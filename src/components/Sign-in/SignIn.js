@@ -21,9 +21,6 @@ export default function SignIn({ setUser }){
         postLogin(body)
             .then(response => {
                 setUser(response.data.nome)
-
-                console.log(response.data)
-                console.log(response.data.nome)
                 navigate('/bills')
             })
             .catch(() => {

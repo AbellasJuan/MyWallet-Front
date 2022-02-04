@@ -2,16 +2,16 @@ import styled from "styled-components";
 
 export default function UserBill( {register} ){
     
-    const { descricao, valor, isCredit } = register;
+    const { descricao, valor, isCredit, data } = register;
 
     return(
         <UnicaLinha>
             <DateAndName>
-                <Date> data </Date>
+                <Date> {data}</Date>
                 <Name> {descricao} </Name>
             </DateAndName>
             <Value isCredit={isCredit}>
-                <span>{valor}</span>
+                <span>{valor.toString().replace('-','')}</span>
             </Value>
         </UnicaLinha>
     );
