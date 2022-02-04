@@ -1,45 +1,41 @@
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
+import { useEffect } from 'react';
+import { getUserRegisters } from '../../service/API.js';
 import UserBill from './UserBill.js';
 import { IoMdExit } from 'react-icons/io';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 
-const dados = [
-    {
-        id: 1,
-        date: "2021-12-31",
-        name: "Almoço",
-        value: "39,90",
-        isCredit: false
-    },
 
-    {
-        id: 2,
-        date: "1999-12-31",
-        name: "Pix",
-        value: "85,90",
-        isCredit: true,
-        
-        comentario: 
-        {
-            autor: "Jorel",
-            texto: "abacate"
-        }
-    }    
-];
+export default function Bills({ user, setUserRegisters, userRegisters }){
 
-export default function Bills(){
+    const token = 123456789;
+
+    useEffect(() => {
+        getUserRegisters(token)
+            .then((response) => setUserRegisters(response.data))
+            
+            .catch(() => console.error)
+    }, []);
+
+    if( userRegisters === null) {
+		return <h1> CARREGANDO... </h1>	
+    }
+
+
+    console.log(userRegisters)
+
     return(
 
         <Container>
             <Header>
-                <h1>{`Olá, Juan`}</h1>
+                <h1>{`Olá, ${user}`}</h1>
                 <IoMdExit id="icon-exit"/>
             </Header>
 
         <ExtractContainer>
-                {dados.map((item, index) => 
-                        <UserBill key={index} item={item}/>
+                {userRegisters.map((register, index) => 
+                        <UserBill key={index} register={register}/>
                 )}
             <Saldo>
                 <b>SALDO</b>
@@ -50,12 +46,12 @@ export default function Bills(){
         <EntryAndExit>
             <Link to="/newentry" id="link-entry">  
                 <AiOutlinePlusCircle id="icon-plus-minus"/>
-                <p>Nova entrada</p>
+                <span>Nova entrada</span>
             </Link>
 
             <Link to="/newexit" id="link-exit">
                 <AiOutlineMinusCircle id="icon-plus-minus"/>
-                <p>Nova saída</p>
+                <span>Nova saída</span>
             </Link>
         </EntryAndExit>
         </Container>
@@ -105,7 +101,7 @@ const EntryAndExit = styled.div`
         background: #A328D6;
         border-radius: 5px;
         
-        p{
+        span{
         font-family: 'Raleway', sans-serif;
         font-style: normal;
         font-size: 17px;
@@ -126,7 +122,7 @@ const EntryAndExit = styled.div`
         background: #A328D6;
         border-radius: 5px;
         
-        p{
+        span{
         font-family: 'Raleway', sans-serif;
         font-style: normal;
         font-size: 17px;
@@ -145,8 +141,6 @@ const EntryAndExit = styled.div`
             font-size: 24px;
         }
 `;
-
-
 
 
 const ExtractContainer = styled.div`

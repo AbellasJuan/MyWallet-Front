@@ -1,21 +1,20 @@
 import styled from "styled-components";
 
-export default function UserBill(props){
-const {  date, name, value, isCredit } = props.item;
-
+export default function UserBill( {register} ){
+    
     return(
         <UnicaLinha>
         <DateAndName>
         <Date>
-            {`${date[8]}${date[9]}/${date[5]}${date[6]}`}
+            data
         </Date>
         
         <Name>
-            {name}
+            {register.descricao}
         </Name>
         </DateAndName>
-        <Value isCredit={isCredit}>
-           <p>{value}</p>
+        <Value >
+           <span>{register.valor}</span>
         </Value>
                 
         </UnicaLinha>
@@ -49,7 +48,7 @@ const Name = styled.div`
     margin-left: 12px;
 `;
 
-const Value = styled.p`
+const Value = styled.span`
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
     font-weight: 400;

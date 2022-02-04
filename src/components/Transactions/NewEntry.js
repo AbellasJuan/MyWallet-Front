@@ -1,22 +1,59 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useState } from "react";
+import {  postNewEntry } from "../../service/API";
+import Swal from 'sweetalert2';
 
 export default function NewEntry(){
-    return(
-        <Container>
-        <h1>Nova entrada</h1>
 
-        <input type="text" placeholder="Valor"/>
-        <input type="text" placeholder="Descrição"/>
-        <input type="submit" value="Salvar entrada"/>
+    const navigate = useNavigate();
+    
+    const token = 123456789;
+
+    const [valor, setValor] = useState('');
+    const [descricao, setDescricao] = useState('');
+
+    function handleNewEntry(event) {
+        event.preventDefault();
+            const body =  
+              {
+                valor,
+                descricao
+              }
+    
+        postNewEntry(body, token)
+            .then(response => {
+                navigate('/bills')
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ops...',
+                    text: 'Os campos devem ser preenchidos corretamente!',
+                })
+            });
+    };  
+
+    return(
+
+        <Container>
+            <h1>Nova entrada</h1>
+
+            <form onSubmit={handleNewEntry}>
+                <input type="text" placeholder='Valor' value={valor} onChange={e => setValor(e.target.value)}/>
+                <input type="text" placeholder='Descrição' value={descricao} onChange={e => setDescricao(e.target.value)}/>
+                <SubmitButton type="submit"> Salvar entrada </SubmitButton>
+            </form>
+
         </Container>
     );
 };
 
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-margin-left: 5vw;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5vw;
 
     h1{
         font-family: 'Raleway', sans-serif;
@@ -26,23 +63,30 @@ margin-left: 5vw;
         color: white;
         margin-top: 25px;
         margin-bottom: 40px;
+        
     };
+
+    form{
+    
+    display: flex;
+    flex-direction: column;
+}
 
     input{
         height: 58px;
-        
         border-radius: 5px;
         font-size: 20px;
         font-weight: 400;
         color: black;
         margin-bottom: 13px;
-        padding-left: 15px;
         max-width: 90vw;
+        padding-left: 15px;
         box-shadow: 0 0 0 0;
         border: 0 none;
         outline: 0;
 
         ::placeholder{
+            margin-left: 15px;
             font-family: 'Raleway', sans-serif;
             font-size: 20px;
             font-weight: 400;
@@ -53,26 +97,30 @@ margin-left: 5vw;
             padding-left: 17px;
             
             ::placeholder{
-                padding-left: 0;
+                padding-left: 0px;
                 color: gray;
-            }     
-        }
-    };
-
-    input[type="submit"] {
-            font-family: 'Raleway', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            
-            color: white;
-            background: #A328D6;
-
-            max-width: 90vw;
-            height: 46px;
-            border-radius: 5px;
-
-            box-shadow: 0 0 0 0;
-            border: 0 none;
-            outline: 0;
+            };   
         };
+    };
 `;
+
+
+const SubmitButton = styled.button`
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    
+    color: white;
+    background: #A328D6;
+
+    padding-left: 0;
+
+    max-width: 90vw;
+    
+    height: 46px;
+    border-radius: 5px;
+
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+`

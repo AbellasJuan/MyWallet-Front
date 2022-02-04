@@ -20,7 +20,10 @@ export default function SignIn({ setUser }){
     
         postLogin(body)
             .then(response => {
-                setUser(response.data)
+                setUser(response.data.nome)
+
+                console.log(response.data)
+                console.log(response.data.nome)
                 navigate('/bills')
             })
             .catch(() => {
@@ -72,18 +75,14 @@ const Container = styled.div`
 
     input{
         height: 58px;
-        width: 326px;
+       
         border-radius: 5px;
-
         font-size: 20px;
         font-weight: 400;
-
         color: black;
-
+        padding-left: 15px;
         margin-bottom: 13px;
         max-width: 90vw;
-        padding-left: 15px;
-
         box-shadow: 0 0 0 0;
         border: 0 none;
         outline: 0;

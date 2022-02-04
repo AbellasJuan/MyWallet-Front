@@ -12,6 +12,7 @@ import UserContext from '../src/contexts/UserContext.js';
 export default function App() {
 
   const [user, setUser] = useState(null);
+  const [userRegisters , setUserRegisters] = useState(null);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -20,7 +21,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<SignIn setUser={setUser} />} />
             <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/bills" element={<Bills/>} />
+            <Route path="/bills" element={<Bills user={user} setUserRegisters={setUserRegisters} userRegisters={userRegisters}/>} />
             <Route path="/newentry" element={<NewEntry/>} />
             <Route path="/newexit" element={<NewExit/>} />
           </Routes>

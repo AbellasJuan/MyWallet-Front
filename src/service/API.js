@@ -12,7 +12,36 @@ function postSignUp(body) {
     return promise;
 };
 
+//vai precisar de token
+function getUserRegisters(token){
+    const config = 
+        {
+            headers: 
+                {
+                Authorization: `Bearer ${token}`
+                }
+        }
+    const promise = axios.get(`${URL_BASE}/userRegisters`, config);
+    return promise;
+};
+
+//vai precisar de token
+function postNewEntry(body, token) {
+    const config =
+        {
+            headers: 
+                {
+                Authorization: `Bearer ${token}`
+                }
+        }
+
+    const promise = axios.post(`${URL_BASE}/new-entry`, body, config);
+    return promise;
+};
+
 export {
     postLogin,
-    postSignUp
+    postSignUp,
+    getUserRegisters,
+    postNewEntry
 };
