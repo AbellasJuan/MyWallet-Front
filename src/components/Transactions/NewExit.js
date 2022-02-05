@@ -5,23 +5,22 @@ import api from "../../service/API";
 import Swal from 'sweetalert2';
 
 export default function NewExit(){
-
     const navigate = useNavigate();
-    
-    const token = 123456789;
 
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
 
-    function handleNewExit(event) {
-        event.preventDefault();
+    const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
+
+    async function handleNewExit(e) {
+        e.preventDefault();
             const body =  
               {
                 value,
                 description
               }
     
-        api.postNewExit(body, token)
+       await api.postNewExit(body, userInfos?.token)
             .then(response => {
                 navigate('/bills')
             })
@@ -33,7 +32,7 @@ export default function NewExit(){
                 })
             });
     };  
-
+    
     return(
 
         <Container>
@@ -42,7 +41,7 @@ export default function NewExit(){
             <form onSubmit={handleNewExit}>
                 <input 
                 type="text" 
-                placeholder='Valor' 
+                placeholder='value' 
                 value={value} 
                 onChange={e => setValue(e.target.value)}
                 />

@@ -5,23 +5,22 @@ import api from "../../service/API";
 import Swal from 'sweetalert2';
 
 export default function NewEntry(){
-
     const navigate = useNavigate();
-
-    const token = 123
 
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
 
-    function handleNewEntry(event) {
-        event.preventDefault();
+    const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
+
+    function handleNewEntry(e) {
+        e.preventDefault();
             const body =  
               {
                 value,
                 description
               }
     
-        api.postNewEntry(body, token)
+        api.postNewEntry(body, userInfos.token)
             .then(response => {
                 navigate('/bills')
             })

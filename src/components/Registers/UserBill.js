@@ -4,10 +4,12 @@ export default function UserBill( {register} ){
     
     const { description, value, isCredit, date } = register;
 
+    console.log(register);
+
     return(
         <UnicaLinha>
             <DateAndName>
-                <Date> {date}</Date>
+                <Date> {date} </Date>
                 <Name> {description} </Name>
             </DateAndName>
             <Value isCredit={isCredit}>

@@ -20,7 +20,7 @@ export default function Bills(){
         }
     
         loadRegisters();
-      }, []);
+      }, [userInfos.token, navigate]);
 
     async function loadRegisters(){
         try{
@@ -52,8 +52,6 @@ export default function Bills(){
     //     }
     //     return soma;
     // }
-
-    
 
     // {calcularSaldo().toString().replace('-','')}
     // saldo={calcularSaldo()}
