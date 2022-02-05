@@ -34,7 +34,6 @@ export default function SignIn(){
             });
     };  
 
-    console.log('aqui')
     return(
         <Container>
             <h1>My Wallet</h1>

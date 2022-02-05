@@ -40,13 +40,21 @@ function getUser(token){
     return promise;
 };
 
+function signOut(token){
+    const config = createConfig(token);
+    const promise = axios.delete(`${URL_BASE}/sign-out`, config);
+    return promise;
+};
+
+
 const api = {
     postLogin,
     postSignUp,
     getUserRegisters,
     postNewEntry,
     postNewExit,
-    getUser
+    getUser,
+    signOut
 };
 
 export default api;

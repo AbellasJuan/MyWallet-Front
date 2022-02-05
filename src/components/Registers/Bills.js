@@ -5,6 +5,7 @@ import api from '../../service/API.js';
 import UserBill from './UserBill.js';
 import { IoMdExit } from 'react-icons/io';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
+import Swal from 'sweetalert2';
 
 
 export default function Bills(){
@@ -56,11 +57,40 @@ export default function Bills(){
     // {calcularSaldo().toString().replace('-','')}
     // saldo={calcularSaldo()}
 
+    async function loadRegisters(){
+        try{
+            const response = await api.getUserRegisters(userInfos?.token);
+
+            setUserRegisters(response?.data);
+            
+        }catch (error) {
+                console.log(error);
+ 
+                alert("Erro!");
+        };
+    }
+
+    function signOut() {
+        try{
+            api.signOut(userInfos?.token)
+            .then(() => {localStorage.removeItem('userInfos');
+            navigate('/');
+            })
+        }catch(error) {
+            console.error(error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Não foi possível deslogar',
+            });
+          };
+    }
+
     return(
         <Container>
             <Header>
                 <h1>{`Olá, ${userInfos.userName}`}</h1>
-                <IoMdExit id="icon-exit"/>
+                <IoMdExit id="icon-exit" onClick={signOut}/>
             </Header>
 
         <ExtractContainer> 
