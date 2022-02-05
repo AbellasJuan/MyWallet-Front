@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { postSignUp } from "../../service/API";
+import api from "../../service/API";
 
 export default function SignUp(){
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function SignUp(){
                         email,
                         password
                      }
-        postSignUp(body)
+        api.postSignUp(body)
             .then(() => {
                 Swal.fire({
                     icon:'success',

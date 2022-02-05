@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from "react";
-import {  postNewExit } from "../../service/API";
+import api from "../../service/API";
 import Swal from 'sweetalert2';
 
 export default function NewExit(){
@@ -10,18 +10,18 @@ export default function NewExit(){
     
     const token = 123456789;
 
-    const [valor, setValor] = useState('');
-    const [descricao, setDescricao] = useState('');
+    const [value, setValue] = useState('');
+    const [description, setDescription] = useState('');
 
-    function handlenewExit(event) {
+    function handleNewExit(event) {
         event.preventDefault();
             const body =  
               {
-                valor,
-                descricao
+                value,
+                description
               }
     
-        postNewExit(body, token)
+        api.postNewExit(body, token)
             .then(response => {
                 navigate('/bills')
             })
@@ -39,9 +39,19 @@ export default function NewExit(){
         <Container>
             <h1>Nova saída</h1>
 
-            <form onSubmit={handlenewExit}>
-                <input type="text" placeholder='Valor' value={valor} onChange={e => setValor(e.target.value)}/>
-                <input type="text" placeholder='Descrição' value={descricao} onChange={e => setDescricao(e.target.value)}/>
+            <form onSubmit={handleNewExit}>
+                <input 
+                type="text" 
+                placeholder='Valor' 
+                value={value} 
+                onChange={e => setValue(e.target.value)}
+                />
+                <input 
+                type="text" 
+                placeholder='Descrição' 
+                value={description} 
+                onChange={e => setDescription(e.target.value)}
+                />
                 <SubmitButton type="submit"> Salvar entrada </SubmitButton>
             </form>
 

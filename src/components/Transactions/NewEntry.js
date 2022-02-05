@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from "react";
-import {  postNewEntry } from "../../service/API";
+import api from "../../service/API";
 import Swal from 'sweetalert2';
 
 export default function NewEntry(){
@@ -21,7 +21,7 @@ export default function NewEntry(){
                 description
               }
     
-        postNewEntry(body, token)
+        api.postNewEntry(body, token)
             .then(response => {
                 navigate('/bills')
             })

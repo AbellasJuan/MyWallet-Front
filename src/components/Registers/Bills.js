@@ -1,22 +1,36 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import { useEffect } from 'react';
-import { getUserRegisters } from '../../service/API.js';
+import { useEffect, useState } from 'react';
+import api from '../../service/API.js';
 import UserBill from './UserBill.js';
 import { IoMdExit } from 'react-icons/io';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 
 
-export default function Bills({ user, setUserRegisters, userRegisters }){
+export default function Bills(){
+    const navigate = useNavigate();
 
-    const token = 123456789;
+    const userToken = localStorage.getItem('user_token');
 
+    const [user, setUser] = useState('');
+    const [userRegisters, setUserRegisters] = useState('');
+    
+    if (!userToken) {
+        navigate('/sign-in');
+      }
+
+    console.log(userToken)
+    
     useEffect(() => {
-        getUserRegisters(token)
-            .then((response) => setUserRegisters(response.data))
+        api.getUserRegisters(userToken)
+            .then((response) => {
+                setUserRegisters(response.data);
+                calcularSaldo()
+            }).catch((error) => console.error(error))
             
-            .catch(() => console.error)
-    }, [setUserRegisters]);
+    }, [userToken]);
+
+    console.log(userRegisters)
 
     if( userRegisters === null) {
 		return <h1> CARREGANDO... </h1>	
@@ -24,8 +38,7 @@ export default function Bills({ user, setUserRegisters, userRegisters }){
 
     function calcularSaldo(){
         const arrayDeValores = [];
-
-        userRegisters.forEach(element => {
+        userRegisters?.forEach(element => {
             arrayDeValores.push(element.valor)
         });
 
@@ -35,7 +48,11 @@ export default function Bills({ user, setUserRegisters, userRegisters }){
         }
         return soma;
     }
-    calcularSaldo();
+
+    
+
+    // {calcularSaldo().toString().replace('-','')}
+    // saldo={calcularSaldo()}
 
     return(
         <Container>
@@ -48,12 +65,12 @@ export default function Bills({ user, setUserRegisters, userRegisters }){
             {userRegisters.length === 0 ? 
                 <h2>VOCÊ AINDA NÃO TEM TRANSAÇÕES</h2>
                 :
-                userRegisters.map((register, index) => 
+                userRegisters?.map((register, index) => 
                 <UserBill key={index} register={register}/>)
             }
-            <Saldo saldo={calcularSaldo()}>
+            <Saldo >
                 <b>SALDO</b>
-                <span>{calcularSaldo().toString().replace('-','')}</span>
+                <span></span>
             </Saldo>
         </ExtractContainer>        
         

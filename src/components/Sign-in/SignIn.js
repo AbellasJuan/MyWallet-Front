@@ -2,7 +2,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from "react";
 import Swal from 'sweetalert2';
-import { postLogin } from "../../service/API";
+import api from "../../service/API";
 
 export default function SignIn({ setUser }){
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ export default function SignIn({ setUser }){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    function handleLogin(event) {
+    async function handleLogin(event) {
         event.preventDefault();
             const body =  
               {
@@ -18,9 +18,12 @@ export default function SignIn({ setUser }){
                 password
               }
     
-        postLogin(body)
+        await api.postLogin(body)
             .then(response => {
-                setUser(response.data.name)
+                localStorage.setItem('userInfos', JSON.stringify(response.data));
+                const userInfos = JSON.parse(localStorage.getItem('userInfos'));
+                console.log(userInfos)
+
                 navigate('/bills');
             })
             .catch(() => {
@@ -31,7 +34,6 @@ export default function SignIn({ setUser }){
                 })
             });
     };  
-
     return(
         <Container>
             <h1>My Wallet</h1>
