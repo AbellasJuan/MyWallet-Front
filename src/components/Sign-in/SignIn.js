@@ -8,20 +8,20 @@ export default function SignIn({ setUser }){
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setPassword] = useState('');
 
     function handleLogin(event) {
         event.preventDefault();
             const body =  
               {
                 email,
-                senha
+                password
               }
     
         postLogin(body)
             .then(response => {
-                setUser(response.data.nome)
-                navigate('/bills')
+                setUser(response.data.name)
+                navigate('/bills');
             })
             .catch(() => {
                 Swal.fire({
@@ -37,8 +37,18 @@ export default function SignIn({ setUser }){
             <h1>My Wallet</h1>
             
             <form onSubmit={handleLogin}>
-                <input type="email" placeholder='E-mail' value={email} onChange={e => setEmail(e.target.value)}/>
-                <input type="password" placeholder='Senha' value={senha} onChange={e => setSenha(e.target.value)}/>
+                <input 
+                type="email" 
+                placeholder='E-mail' 
+                value={email} 
+                onChange={e => setEmail(e.target.value)}
+                />
+                <input 
+                type="password" 
+                placeholder='Senha' 
+                value={password} 
+                onChange={e => setPassword(e.target.value)}
+                />
                 <SubmitButton type="submit"> Entrar </SubmitButton>
             </form>
         

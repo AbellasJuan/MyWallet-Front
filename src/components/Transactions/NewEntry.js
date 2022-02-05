@@ -10,15 +10,15 @@ export default function NewEntry(){
     
     const token = 123456789;
 
-    const [valor, setValor] = useState('');
-    const [descricao, setDescricao] = useState('');
+    const [value, setValue] = useState('');
+    const [description, setDescription] = useState('');
 
     function handleNewEntry(event) {
         event.preventDefault();
             const body =  
               {
-                valor,
-                descricao
+                value,
+                description
               }
     
         postNewEntry(body, token)
@@ -40,8 +40,18 @@ export default function NewEntry(){
             <h1>Nova entrada</h1>
 
             <form onSubmit={handleNewEntry}>
-                <input type="text" placeholder='Valor' value={valor} onChange={e => setValor(e.target.value)}/>
-                <input type="text" placeholder='Descrição' value={descricao} onChange={e => setDescricao(e.target.value)}/>
+                <input 
+                type="text" 
+                placeholder='value' 
+                value={value} 
+                onChange={e => setValue(e.target.value)}
+                />
+                <input 
+                type="text" 
+                placeholder='Descrição' 
+                value={description} 
+                onChange={e => setDescription(e.target.value)}
+                />
                 <SubmitButton type="submit"> Salvar entrada </SubmitButton>
             </form>
 

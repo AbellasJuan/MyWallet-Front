@@ -12,7 +12,6 @@ function postSignUp(body) {
     return promise;
 };
 
-//vai precisar de token
 function getUserRegisters(token){
     const config = 
         {
@@ -25,7 +24,6 @@ function getUserRegisters(token){
     return promise;
 };
 
-//vai precisar de token
 function postNewEntry(body, token) {
     const config =
         {
@@ -39,7 +37,6 @@ function postNewEntry(body, token) {
     return promise;
 };
 
-//vai precisar de token
 function postNewExit(body, token) {
     const config =
         {
@@ -53,10 +50,23 @@ function postNewExit(body, token) {
     return promise;
 };
 
+function getUser(token){
+    const config = 
+        {
+            headers: 
+                {
+                Authorization: `Bearer ${token}`
+                }
+        }
+    const promise = axios.get(`${URL_BASE}/user`, config);
+    return promise;
+};
+
 export {
     postLogin,
     postSignUp,
     getUserRegisters,
     postNewEntry,
-    postNewExit
+    postNewExit,
+    getUser
 };

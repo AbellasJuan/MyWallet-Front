@@ -7,22 +7,22 @@ import { postSignUp } from "../../service/API";
 export default function SignUp(){
     const navigate = useNavigate();
 
-    const [nome, setNome] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-	const [senha, setSenha] = useState("");
-    const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
+	const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     
 
     function handleSignUp(event){
         event.preventDefault();
         
         const body = {
-                        nome,
+                        name,
                         email,
-                        senha
+                        password
                      }
         postSignUp(body)
-            .then(()=> {
+            .then(() => {
                 Swal.fire({
                     icon:'success',
                     title: 'Sucesso!',
@@ -44,10 +44,19 @@ export default function SignUp(){
             <h1>My Wallet</h1>
             
             <form onSubmit={handleSignUp}>
-                <input type="text" placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)}/>
-                <input type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)}/>
-                <input type="password" placeholder="Senha" value={senha} onChange={e => setSenha(e.target.value)}/>
-                <input type="password" placeholder="Confirme a senha" value={confirmacaoSenha} onChange={e => setConfirmacaoSenha(e.target.value)}/>
+                <input 
+                type="text" 
+                placeholder="Nome" 
+                value={name} 
+                onChange={e => setName(e.target.value)}
+                />
+                <input 
+                type="email" 
+                placeholder="E-mail" 
+                value={email} 
+                onChange={e => setEmail(e.target.value)}/>
+                <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)}/>
+                <input type="password" placeholder="Confirme a password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}/>
                 <SubmitButton type="submit"> Cadastrar </SubmitButton>
             </form>
             
