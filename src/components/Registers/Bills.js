@@ -8,46 +8,50 @@ import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 
 
 export default function Bills(){
+    const [userRegisters, setUserRegisters] = useState(null);
     const navigate = useNavigate();
 
-    const userToken = localStorage.getItem('user_token');
-
-    const [user, setUser] = useState('');
-    const [userRegisters, setUserRegisters] = useState('');
+    const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
     
-    if (!userToken) {
-        navigate('/sign-in');
-      }
-
-    console.log(userToken)
     
     useEffect(() => {
-        api.getUserRegisters(userToken)
-            .then((response) => {
-                setUserRegisters(response.data);
-                calcularSaldo()
-            }).catch((error) => console.error(error))
-            
-    }, [userToken]);
+        if (!userInfos.token){
+          return navigate("/");
+        }
+    
+        loadRegisters();
+      }, []);
 
-    console.log(userRegisters)
+    async function loadRegisters(){
+        try{
+            const response = await api.getUserRegisters(userInfos.token);
+            
+            console.log('o q veio do registers' , response.data)
+            setUserRegisters(response?.data);
+            
+            }catch (error) {
+                console.log(error);
+ 
+                alert("Erro!");
+            };
+    }
 
     if( userRegisters === null) {
 		return <h1> CARREGANDO... </h1>	
     }
 
-    function calcularSaldo(){
-        const arrayDeValores = [];
-        userRegisters?.forEach(element => {
-            arrayDeValores.push(element.valor)
-        });
+    // function calcularSaldo(){
+    //     const arrayDeValores = [];
+    //     userRegisters?.forEach(element => {
+    //         arrayDeValores.push(element.valor)
+    //     });
 
-        let soma = 0;
-        for(let i in arrayDeValores){
-            soma += arrayDeValores[i]
-        }
-        return soma;
-    }
+    //     let soma = 0;
+    //     for(let i in arrayDeValores){
+    //         soma += arrayDeValores[i]
+    //     }
+    //     return soma;
+    // }
 
     
 
@@ -57,18 +61,18 @@ export default function Bills(){
     return(
         <Container>
             <Header>
-                <h1>{`Olá, ${user}`}</h1>
+                <h1>{`Olá, ${userInfos.userName}`}</h1>
                 <IoMdExit id="icon-exit"/>
             </Header>
 
         <ExtractContainer> 
-            {userRegisters.length === 0 ? 
+            {userRegisters.length === 0?  
                 <h2>VOCÊ AINDA NÃO TEM TRANSAÇÕES</h2>
                 :
                 userRegisters?.map((register, index) => 
                 <UserBill key={index} register={register}/>)
             }
-            <Saldo >
+            <Saldo>
                 <b>SALDO</b>
                 <span></span>
             </Saldo>

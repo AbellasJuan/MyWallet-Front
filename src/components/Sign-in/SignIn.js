@@ -4,36 +4,37 @@ import { useState } from "react";
 import Swal from 'sweetalert2';
 import api from "../../service/API";
 
-export default function SignIn({ setUser }){
+export default function SignIn(){
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    async function handleLogin(event) {
-        event.preventDefault();
+    function handleLogin(e) {
+        e.preventDefault();
             const body =  
               {
                 email,
                 password
               }
     
-        await api.postLogin(body)
-            .then(response => {
+        api.postLogin(body)
+            .then((response) => {
                 localStorage.setItem('userInfos', JSON.stringify(response.data));
-                const userInfos = JSON.parse(localStorage.getItem('userInfos'));
-                console.log(userInfos)
-
+                
                 navigate('/bills');
             })
-            .catch(() => {
+            .catch((error) => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Ops...',
                     text: 'Usuário e/ou senha incorretos!',
                 })
+                console.log(error)
             });
     };  
+
+    console.log('aqui')
     return(
         <Container>
             <h1>My Wallet</h1>
