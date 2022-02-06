@@ -19,55 +19,24 @@ export default function Bills(){
         if (!userInfos.token){
           return navigate("/");
         }
-    
+        async function loadRegisters(){
+            try{
+                const response = await api.getUserRegisters(userInfos.token);
+                
+                console.log('o q veio do registers' , response.data)
+                setUserRegisters(response?.data);
+                
+                }catch (error) {
+                    console.log(error);
+     
+                    alert("Erro!");
+                };
+        }
         loadRegisters();
       }, [userInfos.token, navigate]);
 
-    async function loadRegisters(){
-        try{
-            const response = await api.getUserRegisters(userInfos.token);
-            
-            console.log('o q veio do registers' , response.data)
-            setUserRegisters(response?.data);
-            
-            }catch (error) {
-                console.log(error);
- 
-                alert("Erro!");
-            };
-    }
-
     if( userRegisters === null) {
 		return <h1> CARREGANDO... </h1>	
-    }
-
-    // function calcularSaldo(){
-    //     const arrayDeValores = [];
-    //     userRegisters?.forEach(element => {
-    //         arrayDeValores.push(element.valor)
-    //     });
-
-    //     let soma = 0;
-    //     for(let i in arrayDeValores){
-    //         soma += arrayDeValores[i]
-    //     }
-    //     return soma;
-    // }
-
-    // {calcularSaldo().toString().replace('-','')}
-    // saldo={calcularSaldo()}
-
-    async function loadRegisters(){
-        try{
-            const response = await api.getUserRegisters(userInfos?.token);
-
-            setUserRegisters(response?.data);
-            
-        }catch (error) {
-                console.log(error);
- 
-                alert("Erro!");
-        };
     }
 
     function signOut() {
