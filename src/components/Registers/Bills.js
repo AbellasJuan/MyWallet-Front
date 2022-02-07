@@ -14,23 +14,23 @@ export default function Bills(){
 
     const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
     
-    
     useEffect(() => {
         if (!userInfos.token){
           return navigate("/");
         }
         async function loadRegisters(){
             try{
-                const response = await api.getUserRegisters(userInfos.token);
+                const response = await api.getUserRegisters(userInfos?.token);
                 
-                console.log('o q veio do registers' , response.data)
                 setUserRegisters(response?.data);
-                
-                }catch (error) {
-                    console.log(error);
-     
-                    alert("Erro!");
-                };
+            }catch(error) {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Não foi carregar registros',
+                });
+            };
         }
         loadRegisters();
       }, [userInfos.token, navigate]);

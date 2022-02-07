@@ -12,31 +12,64 @@ export default function SignUp(){
 	const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     
+    function validPassword(){
+        if (password !== confirmPassword){
+            return true
+        }    
+    }
 
     function handleSignUp(event){
         event.preventDefault();
-        
-        const body = {
-                        name,
-                        email,
-                        password
-                     }
-        api.postSignUp(body)
-            .then(() => {
-                Swal.fire({
-                    icon:'success',
-                    title: 'Sucesso!',
-                    text: 'O usuário foi cadastrado'
+        if(validPassword() === true){
+            return  Swal.fire({
+                        icon: "error",
+                        title: "Ops...",
+                        text: "As senhas não coincidem! "
+                    })
+        }else {  
+            const body = {
+                            name,
+                            email,
+                            password
+                        }
+            api.postSignUp(body)
+                .then(() => {
+                    Swal.fire({
+                        icon:'success',
+                        title: 'Sucesso!',
+                        text: 'O usuário foi cadastrado'
+                    })
+                    navigate('/');
                 })
-                navigate('/');
-            })
-            .catch(() =>{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Cadastro Inválido',
-                    text: 'Todos os campos devem ser preenchidos corretamente'
-                })
-            })
+                .catch((error) => {
+                    console.log(error.response)
+                    if(email.length === 0 || password.length === 0 || name.length === 0){
+                        return Swal.fire({
+                            icon: 'error',
+                            title: 'Ops...',
+                            text: 'Todos os campos devem ser preenchidos!'
+                        })
+                    } else if(error.response.data[0].includes('password')){
+                        return Swal.fire({
+                            icon: 'error',
+                            title: 'Ops...',
+                            text: 'A senha deve ter no mín 3 caracteres!'
+                        })
+                    } else if(error.response.data[0].includes('email')){
+                        return Swal.fire({
+                            icon: 'error',
+                            title: 'Ops...',
+                            text: 'O e-mail deve ser preenchido corretamente!',
+                        })
+                    } else if(error.response.data[0].includes('name')){
+                        return Swal.fire({
+                            icon: 'error',
+                            title: 'Ops...',
+                            text: 'O usuário deve ter no mín 3 caracteres!',
+                        })
+                    }
+                });
+        }
     }
 
     return(
@@ -48,15 +81,24 @@ export default function SignUp(){
                 type="text" 
                 placeholder="Nome" 
                 value={name} 
-                onChange={e => setName(e.target.value)}
-                />
+                onChange={e => setName(e.target.value)}/>
                 <input 
                 type="email" 
                 placeholder="E-mail" 
                 value={email} 
                 onChange={e => setEmail(e.target.value)}/>
-                <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)}/>
-                <input type="password" placeholder="Confirme a password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}/>
+                <input 
+                type="password" 
+                placeholder="password" 
+                size={30} 
+                value={password} 
+                onChange={e => setPassword(e.target.value)}/>
+                <input 
+                type="password" 
+                placeholder="Confirme a password" 
+                value={confirmPassword} 
+                onChange={e => setConfirmPassword(e.target.value)}/>
+
                 <SubmitButton type="submit"> Cadastrar </SubmitButton>
             </form>
             

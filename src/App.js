@@ -6,9 +6,7 @@ import NewEntry from './components/Transactions/NewEntry.js';
 import NewExit from './components/Transactions/NewExit.js';
 import styled from 'styled-components';
 
-
 export default function App() {
-
 
   return (
     

@@ -25,12 +25,32 @@ export default function SignIn(){
                 navigate('/bills');
             })
             .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ops...',
-                    text: 'Usuário e/ou senha incorretos!',
-                })
-                console.log(error)
+                if(email.length === 0 || password.length === 0){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'Todos os campos devem ser preenchidos!'
+                    })
+                } else if(error.response.data[0].includes('password')){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'A senha deve ter no mín 3 caracteres!'
+                    })
+                    
+                } else if(error.response.data.includes('Unauthorized')){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'Usuário não cadastrado!',
+                    })
+                } else if(error.response.data[0].includes('email')){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'O e-mail deve ser preenchido corretamente!',
+                    })
+                } 
             });
     };  
 

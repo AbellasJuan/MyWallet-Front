@@ -46,7 +46,6 @@ function signOut(token){
     return promise;
 };
 
-
 const api = {
     postLogin,
     postSignUp,

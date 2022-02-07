@@ -24,12 +24,26 @@ export default function NewExit(){
             .then(response => {
                 navigate('/bills')
             })
-            .catch(() => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ops...',
-                    text: 'Os campos devem ser preenchidos corretamente!',
+            .catch((error) => {
+                if(value.length === 0 || description.length === 0){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'Os campos devem ser preenchidos!'
                 })
+                }else if(error.response.data[0].includes('description')){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'A descrição deve ter no mín 2 caracteres!'
+                    })
+                } else if (error.response.data[0].includes('number')){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'O valor deve ser um número!',
+                    })
+                }
             });
     };  
     
