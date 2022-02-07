@@ -2,16 +2,12 @@ import axios from "axios";
 
 const URL_BASE = 'http://localhost:5000';
 
-const apiUrl = axios.create({
-    baseURL: URL_BASE
-})
-    
 function createConfig(token) {
     return { headers: { Authorization: `Bearer ${token}` } };
-}
+  }
 
 function postLogin(body) {
-    const promise = apiUrl.post('/auth/sign', body)
+    const promise = axios.post(`${URL_BASE}/auth/sign-in`, body);
     return promise;
 };
 

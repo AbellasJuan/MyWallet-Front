@@ -20,7 +20,7 @@ export default function NewEntry(){
 			description,
 		}
     
-        api.postNewEntry(body, userInfos.token)
+        api.postNewEntry(body, userInfos?.token)
             .then(response => {
                 navigate('/bills')
             })
@@ -42,6 +42,12 @@ export default function NewEntry(){
                         icon: 'error',
                         title: 'Ops...',
                         text: 'O valor deve ser um número!',
+                    })
+                }else if (error.response.status === 401){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'Você precisa estar logado!',
                     })
                 }
             });

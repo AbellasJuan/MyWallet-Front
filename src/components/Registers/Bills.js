@@ -19,7 +19,7 @@ export default function Bills(){
     console.log(userRegisters)
    
     useEffect(() => {
-        if (!userInfos.token){
+        if (!userInfos?.token){
           return navigate("/");
         }
 
@@ -39,7 +39,7 @@ export default function Bills(){
 
         }
         loadRegisters();
-    }, [userInfos.token, navigate]);
+    }, [navigate]);
 
     useEffect(() => {
         if(userRegisters.length !== 0){
@@ -87,7 +87,7 @@ export default function Bills(){
     return(
         <Container>
             <Header>
-                <h1>{`Olá, ${userInfos.userName}`}</h1>
+                <h1>{`Olá, ${userInfos?.userName}`}</h1>
                 <IoMdExit id="icon-exit" onClick={signOut}/>
             </Header>
 

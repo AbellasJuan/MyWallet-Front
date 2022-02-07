@@ -67,6 +67,12 @@ export default function SignUp(){
                             title: 'Ops...',
                             text: 'O usuário deve ter no mín 3 caracteres!',
                         })
+                    }else if(error.response.status === 400){
+                        return Swal.fire({
+                            icon: 'error',
+                            title: 'Ops...',
+                            text: 'O usuário já existe!',
+                        })
                     }
                 });
         }

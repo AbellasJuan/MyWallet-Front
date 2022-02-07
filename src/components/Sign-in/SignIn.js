@@ -25,6 +25,7 @@ export default function SignIn(){
                 navigate('/bills');
             })
             .catch((error) => {
+                console.log(error.response)
                 if(email.length === 0 || password.length === 0){
                     return Swal.fire({
                         icon: 'error',
@@ -50,7 +51,13 @@ export default function SignIn(){
                         title: 'Ops...',
                         text: 'O e-mail deve ser preenchido corretamente!',
                     })
-                } 
+                } else if(error.response.status === 404){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'O e-mail deve ser preenchido corretamente!',
+                    })
+                }
             });
     };  
 
