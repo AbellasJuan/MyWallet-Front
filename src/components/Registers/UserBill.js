@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
 export default function UserBill( {register} ){
-    
     const { description, value, isCredit, date } = register;
-
-    console.log(register)
 
     return(
         <UnicaLinha>

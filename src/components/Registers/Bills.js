@@ -15,9 +15,7 @@ export default function Bills(){
     const [retornoDaFuncao, setRetornoDaFuncao] = useState(0);
         
     const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
-   
-    console.log(userRegisters)
-   
+
     useEffect(() => {
         if (!userInfos?.token){
           return navigate("/");
@@ -43,7 +41,6 @@ export default function Bills(){
 
     useEffect(() => {
         if(userRegisters.length !== 0){
-            console.log("entrou")
             calcularSaldo();
         }
     }, [userRegisters] )
@@ -82,8 +79,6 @@ export default function Bills(){
         return calculateTotaltoFixed2 ;
     }
 
-    console.log('aqui:', retornoDaFuncao)
-
     return(
         <Container>
             <Header>
@@ -100,7 +95,7 @@ export default function Bills(){
             }
             <Saldo saldo={retornoDaFuncao}>
                 <b>SALDO</b>
-                <span>{String(retornoDaFuncao).replace('.' , ',')}</span>
+                <span>{String(retornoDaFuncao).replace('.' , ',').replace('-','')}</span>
             </Saldo>
         </ExtractContainer>        
         

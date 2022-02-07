@@ -42,7 +42,6 @@ export default function SignUp(){
                     navigate('/');
                 })
                 .catch((error) => {
-                    console.log(error.response)
                     if(email.length === 0 || password.length === 0 || name.length === 0){
                         return Swal.fire({
                             icon: 'error',

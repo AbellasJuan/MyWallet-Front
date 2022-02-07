@@ -25,7 +25,6 @@ export default function SignIn(){
                 navigate('/bills');
             })
             .catch((error) => {
-                console.log(error.response)
                 if(email.length === 0 || password.length === 0){
                     return Swal.fire({
                         icon: 'error',
