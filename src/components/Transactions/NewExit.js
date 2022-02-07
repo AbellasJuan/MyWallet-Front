@@ -12,24 +12,24 @@ export default function NewExit(){
 
     const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
 
-    async function handleNewExit(e) {
+    function handleNewExit(e) {
         e.preventDefault();
-            const body =  
-              {
-                value,
-                description
-              }
+		
+		const body = {
+			value: value.replace(',' , '.'),
+			description,
+		}
     
-       await api.postNewExit(body, userInfos?.token)
+        api.postNewExit(body, userInfos.token)
             .then(response => {
                 navigate('/bills')
             })
             .catch((error) => {
                 if(value.length === 0 || description.length === 0){
-                    return Swal.fire({
-                        icon: 'error',
-                        title: 'Ops...',
-                        text: 'Os campos devem ser preenchidos!'
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Ops...',
+                    text: 'Os campos devem ser preenchidos!'
                 })
                 }else if(error.response.data[0].includes('description')){
                     return Swal.fire({
@@ -46,7 +46,7 @@ export default function NewExit(){
                 }
             });
     };  
-    
+
     return(
 
         <Container>
@@ -65,7 +65,7 @@ export default function NewExit(){
                 value={description} 
                 onChange={e => setDescription(e.target.value)}
                 />
-                <SubmitButton type="submit"> Salvar entrada </SubmitButton>
+                <SubmitButton type="submit"> Salvar saída </SubmitButton>
             </form>
 
         </Container>

@@ -4,6 +4,8 @@ export default function UserBill( {register} ){
     
     const { description, value, isCredit, date } = register;
 
+    console.log(register)
+
     return(
         <UnicaLinha>
             <DateAndName>
@@ -11,7 +13,7 @@ export default function UserBill( {register} ){
                 <Name> {description} </Name>
             </DateAndName>
             <Value isCredit={isCredit}>
-                <span>{value.toFixed(2).replace('.',',')}</span>
+                <span>{value.toFixed(2).replace('.',',').replace('-','')}</span>
             </Value>
         </UnicaLinha>
     );

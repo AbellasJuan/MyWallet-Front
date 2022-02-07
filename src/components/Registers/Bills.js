@@ -11,32 +11,44 @@ import Swal from 'sweetalert2';
 export default function Bills(){
     const navigate = useNavigate();
 
-    const [userRegisters, setUserRegisters] = useState(null);
+    const [userRegisters, setUserRegisters] = useState([]);
+    const [retornoDaFuncao, setRetornoDaFuncao] = useState(0);
         
     const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
+   
+    console.log(userRegisters)
    
     useEffect(() => {
         if (!userInfos.token){
           return navigate("/");
         }
+
         async function loadRegisters(){
             try{
                 const response = await api.getUserRegisters(userInfos?.token);
                 
                 setUserRegisters(response?.data);
             }catch(error) {
-                console.error(error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Não foi carregar registros',
                 });
             };
+
+
         }
         loadRegisters();
     }, [userInfos.token, navigate]);
 
-    if( userRegisters === null) {
+    useEffect(() => {
+        if(userRegisters.length !== 0){
+            console.log("entrou")
+            calcularSaldo();
+        }
+    }, [userRegisters] )
+
+    if(userRegisters === null) {
 		return <h1> CARREGANDO... </h1>	
     }
 
@@ -66,15 +78,12 @@ export default function Bills(){
 
         let calculateTotal = arrayDeValores.reduce(reducer);
         let calculateTotaltoFixed2 = calculateTotal.toFixed(2);
-
-        console.log(calculateTotaltoFixed2);
+        setRetornoDaFuncao(calculateTotaltoFixed2);
         return calculateTotaltoFixed2 ;
     }
-    
-    if(userRegisters.length !== 0){
-    calcularSaldo();
-    }
-    
+
+    console.log('aqui:', retornoDaFuncao)
+
     return(
         <Container>
             <Header>
@@ -89,9 +98,9 @@ export default function Bills(){
                 userRegisters?.map((register, index) => 
                 <UserBill key={index} register={register}/>)
             }
-            <Saldo>
+            <Saldo saldo={retornoDaFuncao}>
                 <b>SALDO</b>
-                <span>{userRegisters.length !== 0 ? calcularSaldo().replace('.' , ',') : 0}</span>
+                <span>{String(retornoDaFuncao).replace('.' , ',')}</span>
             </Saldo>
         </ExtractContainer>        
         
