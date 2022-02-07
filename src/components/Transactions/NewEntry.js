@@ -14,11 +14,11 @@ export default function NewEntry(){
 
     function handleNewEntry(e) {
         e.preventDefault();
-            const body =  
-              {
-                value,
-                description
-              }
+		
+		const body = {
+			value: value.replace(',' , '.'),
+			description,
+		}
     
         api.postNewEntry(body, userInfos.token)
             .then(response => {

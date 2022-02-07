@@ -9,11 +9,12 @@ import Swal from 'sweetalert2';
 
 
 export default function Bills(){
-    const [userRegisters, setUserRegisters] = useState(null);
     const navigate = useNavigate();
 
+    const [userRegisters, setUserRegisters] = useState(null);
+        
     const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
-    
+   
     useEffect(() => {
         if (!userInfos.token){
           return navigate("/");
@@ -33,7 +34,7 @@ export default function Bills(){
             };
         }
         loadRegisters();
-      }, [userInfos.token, navigate]);
+    }, [userInfos.token, navigate]);
 
     if( userRegisters === null) {
 		return <h1> CARREGANDO... </h1>	
@@ -55,6 +56,25 @@ export default function Bills(){
           };
     }
 
+    function calcularSaldo(){
+        const arrayDeValores = [];
+        const reducer = (previousValue, currentValue) => previousValue + currentValue;
+
+        userRegisters.forEach(element => {
+            arrayDeValores.push(element.value);
+        });
+
+        let calculateTotal = arrayDeValores.reduce(reducer);
+        let calculateTotaltoFixed2 = calculateTotal.toFixed(2);
+
+        console.log(calculateTotaltoFixed2);
+        return calculateTotaltoFixed2 ;
+    }
+    
+    if(userRegisters.length !== 0){
+    calcularSaldo();
+    }
+    
     return(
         <Container>
             <Header>
@@ -71,7 +91,7 @@ export default function Bills(){
             }
             <Saldo>
                 <b>SALDO</b>
-                <span></span>
+                <span>{userRegisters.length !== 0 ? calcularSaldo().replace('.' , ',') : 0}</span>
             </Saldo>
         </ExtractContainer>        
         
@@ -135,19 +155,25 @@ const ExtractContainer = styled.div`
     margin: 0 auto;
 
         h2{
+            margin: 0 auto;
+            margin-top: 50%;
             font-family: 'Raleway', sans-serif;
             text-align: center;
-            margin-top: 20%;
-            font-weight: 700;
+            font-weight: 700;font-size: 20px;
+            color: #868686;
+            font-weight: 400;
+            width: 180px;
+            flex-wrap: wrap;
         }
 `;
 
 const EntryAndExit = styled.div`    
     display: flex;
-    padding-bottom: 30PX;
+    margin-bottom: 10px;
     width: 90vw;
     margin: auto;
     justify-content: space-between;
+    margin-top: 10px;
 
 
     #link-entry{

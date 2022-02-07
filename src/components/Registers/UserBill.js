@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function UserBill( {register} ){
     
     const { description, value, isCredit, date } = register;
-    
+
     return(
         <UnicaLinha>
             <DateAndName>
@@ -11,7 +11,7 @@ export default function UserBill( {register} ){
                 <Name> {description} </Name>
             </DateAndName>
             <Value isCredit={isCredit}>
-                <span>{value}</span>
+                <span>{value.toFixed(2).replace('.',',')}</span>
             </Value>
         </UnicaLinha>
     );
