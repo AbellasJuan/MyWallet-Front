@@ -64,7 +64,7 @@ export default function Bills(){
 
         <ExtractContainer> 
             {userRegisters.length === 0?  
-                <h2>VOCÊ AINDA NÃO TEM TRANSAÇÕES</h2>
+                <h2>Não há registros de entrada ou saída</h2>
                 :
                 userRegisters?.map((register, index) => 
                 <UserBill key={index} register={register}/>)
