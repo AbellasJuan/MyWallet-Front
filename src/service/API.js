@@ -34,12 +34,6 @@ function postNewExit(body, token) {
     return promise;
 };
 
-function getUser(token){
-    const config = createConfig(token);
-    const promise = axios.get(`${URL_BASE}/user`, config);
-    return promise;
-};
-
 function signOut(token){
     const config = createConfig(token);
     const promise = axios.delete(`${URL_BASE}/sign-out`, config);
@@ -52,7 +46,6 @@ const api = {
     getUserRegisters,
     postNewEntry,
     postNewExit,
-    getUser,
     signOut
 };
 
