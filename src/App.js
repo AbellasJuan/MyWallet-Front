@@ -9,7 +9,6 @@ import styled from 'styled-components';
 export default function App() {
 
   return (
-    
       <BrowserRouter>
         <Container>
           <Routes>
@@ -21,7 +20,6 @@ export default function App() {
           </Routes>
         </Container>
       </BrowserRouter>
-    
   );
 }
 
