@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL_BASE = 'http://localhost:5000';
+const URL_BASE = 'https://mywallet-abellasjuan.herokuapp.com';
 
 function createConfig(token) {
     return { headers: { Authorization: `Bearer ${token}` } };

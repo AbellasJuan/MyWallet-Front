@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignIn from  "./components/Sign-in/SignIn.js";
-import SignUp from './components/Sign-up/SignUp.js';
-import Bills from './components/Registers/Bills.js';
-import NewEntry from './components/Transactions/NewEntry.js';
-import NewExit from './components/Transactions/NewExit.js';
+import SignIn from  "./pages/Sign-in/SignIn.js";
+import SignUp from './pages/Sign-up/SignUp.js';
+import Bills from './pages/Registers/Bills.js';
+import NewEntry from './pages/Transactions/NewEntry.js';
+import NewExit from './pages/Transactions/NewExit.js';
 import styled from 'styled-components';
 
 export default function App() {

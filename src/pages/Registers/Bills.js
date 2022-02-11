@@ -37,12 +37,14 @@ export default function Bills(){
 
         }
         loadRegisters();
+        // eslint-disable-next-line
     }, [navigate]);
 
     useEffect(() => {
         if(userRegisters.length !== 0){
-            calcularSaldo();
+            calcularSaldo();   
         }
+        // eslint-disable-next-line
     }, [userRegisters] )
 
     if(userRegisters === null) {
