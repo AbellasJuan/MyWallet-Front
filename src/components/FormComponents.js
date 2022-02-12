@@ -16,7 +16,7 @@ const Container = styled.div`
     }
 
     form{
-        min-width: 300px;
+        width: 90vw;
         max-width: 800px;
         display: flex;
         flex-direction: column;
@@ -30,7 +30,6 @@ const Container = styled.div`
         color: black;
         padding-left: 15px;
         margin-bottom: 13px;
-        max-width: 90vw;
         box-shadow: 0 0 0 0;
         border: 0 none;
         outline: 0;

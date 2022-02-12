@@ -7,6 +7,7 @@ import { IoMdExit } from 'react-icons/io';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import Swal from 'sweetalert2';
 
+
 export default function Bills(){
     const navigate = useNavigate();
 
@@ -44,9 +45,11 @@ export default function Bills(){
             calcularSaldo();   
         }
         // eslint-disable-next-line
-    }, [calcularSaldo, retornoDaFuncao] )
+    }, [userRegisters] )
 
-    
+    if(userRegisters === null) {
+		return <h1> CARREGANDO... </h1>	
+    }
 
     function signOut() {
         try{
