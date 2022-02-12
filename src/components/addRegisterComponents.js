@@ -13,7 +13,6 @@ h1{
     color: white;
     margin-top: 25px;
     margin-bottom: 40px;
-    
 };
 
 form{
@@ -58,20 +57,16 @@ const SubmitButton = styled.button`
 font-family: 'Raleway', sans-serif;
 font-size: 20px;
 font-weight: 700;
-
 color: white;
 background: #A328D6;
-
 padding-left: 0;
-
 max-width: 90vw;
-
 height: 46px;
 border-radius: 5px;
-
 box-shadow: 0 0 0 0;
 border: 0 none;
 outline: 0;
+text-align: center;
 `
 
 export {

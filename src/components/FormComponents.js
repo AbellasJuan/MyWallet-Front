@@ -55,7 +55,9 @@ const Container = styled.div`
 `;
 
 const SubmitButton = styled.button`
-    font-family: 'Raleway', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 20px;
     font-weight: 700;
     color: white;

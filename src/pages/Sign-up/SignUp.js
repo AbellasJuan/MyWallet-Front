@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, SubmitButton, StyledLink } from "../../components/FormComponents.js";
 import Swal from 'sweetalert2';
 import api from "../../service/API";
+import {ThreeDots} from 'react-loader-spinner';
 
 export default function SignUp(){
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function SignUp(){
     async function handleSignUp(event){
         event.preventDefault();
         setButtonDisable(true)
+
         
         if(validPassword() === true){
             console.log(buttonDisable)
@@ -115,7 +117,9 @@ export default function SignUp(){
                 value={confirmPassword} 
                 onChange={e => setConfirmPassword(e.target.value)}/>
 
-                <SubmitButton type="submit" disabled={ buttonDisable } > Cadastrar </SubmitButton>
+                <SubmitButton type="submit" disabled={ buttonDisable }> 
+                {buttonDisable ? <ThreeDots type="ThreeDots" color="#ffffff" alignSelf={'center'} height={60} width={60}/> : 'Cadastrar'} 
+                </SubmitButton>
             </form>
             
             
