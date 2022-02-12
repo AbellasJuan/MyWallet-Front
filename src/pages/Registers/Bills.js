@@ -162,7 +162,7 @@ const ExtractContainer = styled.div`
 
         h2{
             margin: 0 auto;
-            margin-top: 50%;
+            margin-top: 20vh;
             font-family: 'Raleway', sans-serif;
             text-align: center;
             font-weight: 700;font-size: 20px;

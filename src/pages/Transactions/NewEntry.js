@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Container, SubmitButton } from '../../components/addRegisterComnponents';
+import { Container, SubmitButton } from '../../components/addRegisterComponents';
 import { useState } from "react";
 import api from "../../service/API";
 import Swal from 'sweetalert2';
