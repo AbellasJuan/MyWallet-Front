@@ -16,6 +16,7 @@ const Container = styled.div`
     }
 
     form{
+        min-width: 300px;
         max-width: 800px;
         display: flex;
         flex-direction: column;

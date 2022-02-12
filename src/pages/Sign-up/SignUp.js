@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Container, SubmitButton, StyledLink } from "../../components/FormComponents.js";
@@ -12,37 +11,47 @@ export default function SignUp(){
     const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    
+    const [buttonDisable, setButtonDisable] = useState(false);
+
     function validPassword(){
         if (password !== confirmPassword){
             return true
         }    
     }
 
-    function handleSignUp(event){
+    async function handleSignUp(event){
         event.preventDefault();
+        setButtonDisable(true)
+        
         if(validPassword() === true){
+            console.log(buttonDisable)
+            setButtonDisable(false);
+            
             return  Swal.fire({
                         icon: "error",
                         title: "Ops...",
                         text: "As senhas não coincidem! "
                     })
+                    
         }else {  
             const body = {
                             name,
                             email,
                             password
                         }
-            api.postSignUp(body)
+            await api.postSignUp(body)
                 .then(() => {
                     Swal.fire({
                         icon:'success',
                         title: 'Sucesso!',
                         text: 'O usuário foi cadastrado'
                     })
+                    
                     navigate('/');
                 })
                 .catch((error) => {
+                    console.log(buttonDisable)
+                    setButtonDisable(false);
                     if(email.length === 0 || password.length === 0 || name.length === 0){
                         return Swal.fire({
                             icon: 'error',
@@ -74,6 +83,7 @@ export default function SignUp(){
                             text: 'O usuário já existe!',
                         })
                     }
+                    
                 });
         }
     }
@@ -105,7 +115,7 @@ export default function SignUp(){
                 value={confirmPassword} 
                 onChange={e => setConfirmPassword(e.target.value)}/>
 
-                <SubmitButton type="submit"> Cadastrar </SubmitButton>
+                <SubmitButton type="submit" disabled={ buttonDisable } > Cadastrar </SubmitButton>
             </form>
             
             

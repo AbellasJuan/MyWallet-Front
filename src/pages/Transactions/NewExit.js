@@ -61,7 +61,7 @@ export default function NewExit(){
             <form onSubmit={handleNewExit}>
                 <input 
                 type="text" 
-                placeholder='value' 
+                placeholder='Valor' 
                 value={value} 
                 onChange={e => setValue(e.target.value)}
                 />

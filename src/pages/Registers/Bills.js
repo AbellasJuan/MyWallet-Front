@@ -7,7 +7,6 @@ import { IoMdExit } from 'react-icons/io';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import Swal from 'sweetalert2';
 
-
 export default function Bills(){
     const navigate = useNavigate();
 
@@ -45,11 +44,9 @@ export default function Bills(){
             calcularSaldo();   
         }
         // eslint-disable-next-line
-    }, [userRegisters] )
+    }, [calcularSaldo, retornoDaFuncao] )
 
-    if(userRegisters === null) {
-		return <h1> CARREGANDO... </h1>	
-    }
+    
 
     function signOut() {
         try{
@@ -89,7 +86,7 @@ export default function Bills(){
             </Header>
 
         <ExtractContainer> 
-            {userRegisters.length === 0?  
+            {userRegisters?.length === 0?  
                 <h2>Não há registros de entrada ou saída</h2>
                 :
                 userRegisters?.map((register, index) => 
