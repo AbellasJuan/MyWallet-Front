@@ -7,12 +7,11 @@ import { IoMdExit } from 'react-icons/io';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import Swal from 'sweetalert2';
 
-
 export default function Bills(){
     const navigate = useNavigate();
 
     const [userRegisters, setUserRegisters] = useState([]);
-    const [retornoDaFuncao, setRetornoDaFuncao] = useState(0);
+    const [totalCalculated, setTotalCalculated] = useState(0);
         
     const userInfos = (JSON.parse(localStorage.getItem('userInfos')));
 
@@ -33,8 +32,6 @@ export default function Bills(){
                     text: 'Não foi carregar registros',
                 });
             };
-
-
         }
         loadRegisters();
         // eslint-disable-next-line
@@ -46,10 +43,6 @@ export default function Bills(){
         }
         // eslint-disable-next-line
     }, [userRegisters] )
-
-    if(userRegisters === null) {
-		return <h1> CARREGANDO... </h1>	
-    }
 
     function signOut() {
         try{
@@ -68,6 +61,9 @@ export default function Bills(){
     }
 
     function calcularSaldo(){
+        if(totalCalculated === undefined){
+           setTotalCalculated(0)
+        }
         const arrayDeValores = [];
         const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
@@ -77,7 +73,7 @@ export default function Bills(){
 
         let calculateTotal = arrayDeValores.reduce(reducer);
         let calculateTotaltoFixed2 = calculateTotal.toFixed(2);
-        setRetornoDaFuncao(calculateTotaltoFixed2);
+        setTotalCalculated(calculateTotaltoFixed2);
         return calculateTotaltoFixed2 ;
     }
 
@@ -89,15 +85,16 @@ export default function Bills(){
             </Header>
 
         <ExtractContainer> 
-            {userRegisters?.length === 0?  
+            {
+                !totalCalculated?  
                 <h2>Não há registros de entrada ou saída</h2>
                 :
                 userRegisters?.map((register, index) => 
                 <UserBill key={index} register={register}/>)
             }
-            <Saldo saldo={retornoDaFuncao}>
+            <Saldo saldo={totalCalculated}>
                 <b>SALDO</b>
-                <span>{String(retornoDaFuncao).replace('.' , ',').replace('-','')}</span>
+                <span>{String(totalCalculated).replace('.' , ',').replace('-','')}</span>
             </Saldo>
         </ExtractContainer>        
         

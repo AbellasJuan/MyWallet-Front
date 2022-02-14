@@ -62,7 +62,7 @@ const SubmitButton = styled.button`
     font-weight: 700;
     color: white;
     background: #A328D6;
-    padding-left: 0;
+    padding:0;
     max-width: 90vw;
     height: 46px;
     border-radius: 5px;
