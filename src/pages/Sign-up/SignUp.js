@@ -107,13 +107,13 @@ export default function SignUp(){
                 onChange={e => setEmail(e.target.value)}/>
                 <input 
                 type="password" 
-                placeholder="password" 
+                placeholder="Senha" 
                 size={30} 
                 value={password} 
                 onChange={e => setPassword(e.target.value)}/>
                 <input 
                 type="password" 
-                placeholder="Confirme a password" 
+                placeholder="Confirme a senha" 
                 value={confirmPassword} 
                 onChange={e => setConfirmPassword(e.target.value)}/>
 
