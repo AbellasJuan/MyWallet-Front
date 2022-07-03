@@ -2,8 +2,6 @@
 
 An easy to use financial manager app. Track your revenues and expenses to learn how you spend your money and know all the time how much you have.
 
-<img src="./public/assets/mywallet.gif" />
-
 Try it out now at https://mywalletfront.vercel.app/
 
 ## About
