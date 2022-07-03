@@ -4,7 +4,7 @@ An easy to use financial manager app. Track your revenues and expenses to learn 
 
 <img src="./public/assets/mywallet.gif" />
 
-Try it out now at https://my-wallet-front-seven.vercel.app/
+Try it out now at https://mywalletfront.vercel.app/
 
 ## About
 
