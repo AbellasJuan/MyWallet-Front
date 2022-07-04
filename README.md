@@ -6,7 +6,7 @@ It is an easy and simple way to organise finances with no stress!
 
 <p align="center"><img width="400px" src="/assets/my_wallet.gif" /></p>
 
-encurtador.com.br/hmnwx
+![MyWallet](https://encurtador.com.br/hmnwx)
 
 ### 🔹🔹About
 
